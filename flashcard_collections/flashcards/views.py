@@ -10,7 +10,8 @@ from django.http import Http404
 class FlashcardList(APIView):
 
     def get(self, request):
-        flashcards = Flashcard.objects.filter(collection=request.data.fk)
+        print(request.data)
+        flashcards = Flashcard.objects.filter(collection=request.data["fk"])
         serializer = FlashcardSerializer(flashcards, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
