@@ -11,7 +11,8 @@ class FlashcardList(APIView):
 
     def get(self, request):
         print(request.data)
-        flashcards = Flashcard.objects.filter(collection=request.data["fk"])
+        collection_id = self.request.query_params.get('collection_id')
+        flashcards = Flashcard.objects.filter(collection=collection_id)
         serializer = FlashcardSerializer(flashcards, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
